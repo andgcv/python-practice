@@ -30,3 +30,18 @@ class Array:
             raise IndexError('Must enter a valid index')
         return self._array[index]
 
+    # Return the index of the item we're searching for within our array, return -1 if not found
+    def find(self, item):
+        for i in range(self._size):
+            if self._array[i] is item:          # Check if current value of array is strictly equal to the given item
+                return i                        # Found the item, return its index
+        return -1                               # Didn't find the item, return -1
+
+    # (Private) Resize the array with the given (new) capacity
+    def _resize(self, new_capacity):
+        _temp_array = Array(new_capacity)  # Allocate desired memory to a temporary array
+        for i in range(self._size):
+            _temp_array[i] = self._array[i]  # Copy each value from the original array to the temporary array
+        self._array = _temp_array  # Update the original array to its resized version
+        _temp_array = None  # Deallocate memory from temporary array
+        self._capacity = new_capacity  # Update the capacity so it matches the resized array
