@@ -37,11 +37,20 @@ class Array:
                 return i                        # Found the item, return its index
         return -1                               # Didn't find the item, return -1
 
+    # Push an item to the end of the array
+    def push(self, item):
+        if self._size == self._capacity:                # Check if array size is at max capacity
+            self._resize(self._capacity * 2)     # Duplicate the array's capacity to accommodate more items
+        self._array[self._size] = item
+        self._size += 1
+
+    #
+
     # (Private) Resize the array with the given (new) capacity
     def _resize(self, new_capacity):
-        _temp_array = Array(new_capacity)  # Allocate desired memory to a temporary array
+        _temp_array = [None] * new_capacity     # Allocate desired memory to a temporary array
         for i in range(self._size):
-            _temp_array[i] = self._array[i]  # Copy each value from the original array to the temporary array
-        self._array = _temp_array  # Update the original array to its resized version
-        _temp_array = None  # Deallocate memory from temporary array
-        self._capacity = new_capacity  # Update the capacity so it matches the resized array
+            _temp_array[i] = self._array[i]     # Copy each value from the original array to the temporary array
+        self._array = _temp_array               # Update the original array to its resized version
+        _temp_array = None                      # Deallocate memory from temporary array
+        self._capacity = new_capacity           # Update the capacity so it matches the resized array
